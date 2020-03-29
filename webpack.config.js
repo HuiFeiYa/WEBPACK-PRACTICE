@@ -1,10 +1,16 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const  {CleanWebpackPlugin}  = require('clean-webpack-plugin')
 const isDev = process.env.NODE_ENV === 'development';
 const config = require('./public/config')[isDev ? 'dev' : 'build'];
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path')
+const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
+const apiMocker = require('mocker-api')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const Happypack = require('happypack')
+const smp = new SpeedMeasurePlugin()
 //webpack.config.js
-module.exports = {
+const webpackConfig = {
   mode: 'development',
   output: {
       path:path.resolve(__dirname, 'dist'),
@@ -13,7 +19,7 @@ module.exports = {
   module: {
       rules: [
           {
-              test: /\.jsx?$/,
+              test: /\.js[x]?$/,
               use: {
                   loader: 'babel-loader',
                   options: {
@@ -28,11 +34,17 @@ module.exports = {
                       ]
                   }
               },
-              exclude: /node_modules/
+              include: [path.resolve(__dirname,'src')]
           },
           {
             test: /\.(le|c)ss$/,
-            use: ['style-loader', 'css-loader', {
+            use: [{
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    hmr: isDev,
+                    reloadAll:true
+                }
+            }, 'css-loader', {
                 loader: 'postcss-loader',
                 options: {
                     plugins: function () {
@@ -67,8 +79,19 @@ module.exports = {
       ]
   },
   devServer: {
+    before(app) {
+        apiMocker(app,path.resolve('./mock/mocker.js'))
+    },
     port: '3000', //默认是8080
-    quiet: false, //默认不启用
+    quiet: false, //默认不启用,
+    proxy: {
+        '/api': {
+            target: 'http://localhost:9000',
+            pathRewrite: {
+                '/api': ''
+            }
+        }
+    }
   },
   plugins: [
       //数组 放着所有的webpack插件
@@ -84,6 +107,11 @@ module.exports = {
       }),
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns:['**/*','!ccc/**']
-      })
+      }),
+      new MiniCssExtractPlugin({
+          filename: 'css/[name].css'
+      }),
+      new OptimizeCssPlugin()
   ]
 }
+module.exports = smp.wrap(webpackConfig)

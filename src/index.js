@@ -1,20 +1,10 @@
 import './index.less';
 
 
+const baseUrl = 'http://localhost:3000'
 
+fetch(baseUrl + '/api/react/login').then(response => response.json)
+                    .then(data => console.log('data', data))
 
-
-
-
-
-//index.js
-class Animal {
-  constructor(name) {
-      this.name = name;
-  }
-  getName() {
-      return this.name;
-  }
-}
-
-const dog = new Animal('dog');
+fetch('/user').then(response => response.json)
+.then(data => console.log('data1', data))
