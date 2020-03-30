@@ -2,6 +2,7 @@ const merge = require('webpack-merge')
 const webpackConfig = require('./webpack.config')
 const webpack = require('webpack')
 const apiMocker = require('mocker-api')
+const path = require('path')
 module.exports = merge(webpackConfig, {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',

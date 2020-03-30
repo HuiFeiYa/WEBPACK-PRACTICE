@@ -3,8 +3,9 @@ const isDev = process.env.NODE_ENV === 'development';
 const config = require('../public/config')[isDev ? 'dev' : 'build'];
 const path = require('path')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
-const Happypack = require('happypack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require('webpack')
+const  {CleanWebpackPlugin}  = require('clean-webpack-plugin')
 
 const smp = new SpeedMeasurePlugin()
 //webpack.config.js
@@ -58,17 +59,19 @@ const webpackConfig = {
       ]
   },
   plugins: [
-      //数组 放着所有的webpack插件
-      new HtmlWebpackPlugin({
-          template: './public/index.html',
-          filename: 'index.html', //打包后的文件名
-          minify: {
-              removeAttributeQuotes: false, //是否删除属性的双引号
-              collapseWhitespace: false, //是否折叠空白
-          }
+      new VueLoaderPlugin(),
+      new webpack.DllReferencePlugin({
+          manifest: require(path.resolve(__dirname, '../dist','dll','manifest.json'))
       }),
-     
-      new VueLoaderPlugin()
+      new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns:['**/*','!dll/**','!dll']
+      }),
   ]
 }
-module.exports = smp.wrap(webpackConfig)
+const afterConfig = smp.wrap(webpackConfig)
+afterConfig.plugins.unshift(//数组 放着所有的webpack插件
+    new HtmlWebpackPlugin({
+        template: './public/index.html'
+    })
+)
+module.exports = afterConfig
