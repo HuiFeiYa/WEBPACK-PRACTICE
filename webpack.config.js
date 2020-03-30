@@ -8,10 +8,11 @@ const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 const apiMocker = require('mocker-api')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const Happypack = require('happypack')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const smp = new SpeedMeasurePlugin()
 //webpack.config.js
 const webpackConfig = {
-  mode: 'development',
+  mode: 'production',
   output: {
       path:path.resolve(__dirname, 'dist'),
       filename: 'bundle.[hash:6].js'
@@ -111,7 +112,8 @@ const webpackConfig = {
       new MiniCssExtractPlugin({
           filename: 'css/[name].css'
       }),
-      new OptimizeCssPlugin()
+      new OptimizeCssPlugin(),
+      new HardSourceWebpackPlugin()
   ]
 }
 module.exports = smp.wrap(webpackConfig)
