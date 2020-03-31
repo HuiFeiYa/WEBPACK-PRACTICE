@@ -46,6 +46,9 @@ module.exports = merge(webpackConfig, {
         NODE_ENV: 'production'
       }
     }),
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin(),
+    new webpack.DllReferencePlugin({
+      manifest: require(path.resolve(__dirname, '../dist','dll','manifest.json'))
+    }),
   ]
 })

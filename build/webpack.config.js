@@ -75,9 +75,6 @@ const webpackConfig = {
   },
   plugins: [
       new VueLoaderPlugin(),
-      new webpack.DllReferencePlugin({
-          manifest: require(path.resolve(__dirname, '../dist','dll','manifest.json'))
-      }),
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns:['**/*','!dll/**','!dll']
       }),

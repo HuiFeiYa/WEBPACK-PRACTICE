@@ -1,10 +1,26 @@
 <template>
-  <div>这里是主页</div>
+  <div>
+    <div>这里是主页</div>
+    <Avatar width="sdd" :value="value" />
+  </div>
 </template>
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
-@Component({})
-export default class componentName extends Vue {
+import Avatar from '../components/AvatarUpload/index.vue'
+@Component({
+  components: {
+    Avatar
+  }
+})
+export default class Login extends Vue {
+  data() {
+    return {
+      list: [{}, {}],
+      value: {
+        name: 'dd'
+      }
+    }
+  }
   created() {
     this.init()
   }
