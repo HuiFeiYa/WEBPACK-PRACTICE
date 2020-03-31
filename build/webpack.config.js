@@ -8,6 +8,7 @@ const webpack = require('webpack')
 const  {CleanWebpackPlugin}  = require('clean-webpack-plugin')
 
 const smp = new SpeedMeasurePlugin()
+const resolve = (dir) => path.resolve(__dirname, dir)
 //webpack.config.js
 const webpackConfig = {
   entry: {
@@ -17,8 +18,22 @@ const webpackConfig = {
       path:path.resolve(__dirname, '../dist'),
       filename: 'bundle.[hash:6].js'
   },
+  resolve: {
+    extensions:['.ts', '.tsx' ,'.js','.vue','.json'],
+    alias: {
+        '@c': resolve('src/components/AvatarUpload')
+    }
+  },
   module: {
       rules: [
+          {
+              test: /\.tsx?$/,
+              loader: 'ts-loader',
+              options: {
+                  configFile: path.resolve(__dirname,'../tsconfig.json'),
+                  appendTsSuffixTo: [/\.vue$/]
+              }
+          },
           {
               test: /\.js[x]?$/,
               use: {
