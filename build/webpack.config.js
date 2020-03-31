@@ -21,7 +21,7 @@ const webpackConfig = {
   resolve: {
     extensions:['.ts', '.tsx' ,'.js','.vue','.json'],
     alias: {
-        '@c': resolve('src/components/AvatarUpload')
+        '@': resolve('src')
     }
   },
   module: {

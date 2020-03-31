@@ -1,17 +1,12 @@
 <template>
   <div class="App">
-    Hello World wqew
-    <Avatar value="cccc"/>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Avatar from './components/AvatarUpload/index'
 export default {
   name: 'App',
-  components: {
-    Avatar
-  },
   data() {
     return {}
   }
