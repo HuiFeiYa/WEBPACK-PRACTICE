@@ -5,23 +5,22 @@ const path = require('path')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
-const  {CleanWebpackPlugin}  = require('clean-webpack-plugin')
 
 const smp = new SpeedMeasurePlugin()
 const resolve = (dir) => path.resolve(__dirname, dir)
 //webpack.config.js
 const webpackConfig = {
   entry: {
-      main:path.resolve(__dirname,'../src/main.js')
+      main:resolve('../src/main.js')
   },
   output: {
-      path:path.resolve(__dirname, '../dist'),
+      path:resolve( '../dist'),
       filename: 'bundle.[hash:6].js'
   },
   resolve: {
     extensions:['.ts', '.tsx' ,'.js','.vue','.json'],
     alias: {
-        '@': resolve('src')
+        "@":path.resolve(__dirname,'../src')
     }
   },
   module: {
@@ -30,12 +29,12 @@ const webpackConfig = {
               test: /\.tsx?$/,
               loader: 'ts-loader',
               options: {
-                  configFile: path.resolve(__dirname,'../tsconfig.json'),
+                //   configFile: path.resolve(__dirname,'../tsconfig.json'),
                   appendTsSuffixTo: [/\.vue$/]
               }
           },
           {
-              test: /\.js[x]?$/,
+              test: /\.jsx?$/,
               use: {
                   loader: 'babel-loader',
                   options: {
@@ -50,7 +49,7 @@ const webpackConfig = {
                       ]
                   }
               },
-              include: [path.resolve(__dirname,'src')]
+              include: [path.resolve(__dirname,'../src')]
           },
           {
             test: /\.(png|jpg|gif|jpeg|webp|svg|eot|ttf|woff|woff2)$/,
@@ -75,10 +74,10 @@ const webpackConfig = {
   },
   plugins: [
       new VueLoaderPlugin(),
-      new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns:['**/*','!dll/**','!dll']
-      }),
-  ]
+  ],
+  optimization: {
+      runtimeChunk: true
+  }
 }
 const afterConfig = smp.wrap(webpackConfig)
 afterConfig.plugins.unshift(//数组 放着所有的webpack插件

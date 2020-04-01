@@ -7,6 +7,7 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
 import Avatar from '../components/AvatarUpload/index.vue'
+import { getArticles } from '../api/layout'
 @Component({
   components: {
     Avatar
@@ -26,6 +27,10 @@ export default class Login extends Vue {
   }
   private init() {
     console.log('init')
+    getArticles(1)
+  }
+  private login() {
+    // ('/dalaran/login')
   }
 }
 </script>

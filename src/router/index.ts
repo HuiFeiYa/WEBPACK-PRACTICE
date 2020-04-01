@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Router , { RouteConfig}  from 'vue-router'
+// eslint-disable-next-line no-unused-vars
+import Router, { RouteConfig } from 'vue-router'
 
 Vue.use(Router)
 export const constantRoutes: RouteConfig[] = [

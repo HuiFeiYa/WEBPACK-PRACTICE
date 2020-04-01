@@ -41,13 +41,16 @@ module.exports = merge(webpackConfig, {
                 '/api': ''
             }
         }
-    }
+    },
+    // 是否在浏览器中显示错误
+    overlay: {
+        warnings: false,
+        errors: true
+      },
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
-    }),
+  plugins:[
+      new webpack.DefinePlugin({
+          'process.env.baseUrl':'https://test.wxb.com.cn'
+      })
   ]
 })
