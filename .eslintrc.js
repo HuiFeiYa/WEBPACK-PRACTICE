@@ -29,6 +29,11 @@ module.exports = {
         'before': true,
         'after': true
       }],
+      "vue/html-closing-bracket-newline": ["error", {
+        "singleline": "never",
+        // html 闭合是否在同一行
+        "multiline": "never"
+      }],
       'block-spacing': [2, 'always'],
       'brace-style': [2, '1tbs', {
         'allowSingleLine': true
@@ -45,7 +50,8 @@ module.exports = {
       'constructor-super': 2,
       'curly': [2, 'multi-line'],
       'dot-location': [2, 'property'],
-      'eol-last': 2,
+      // 标签末尾是否需要换行 0 表示 never 2 表示 always
+      'eol-last': 0,
       'eqeqeq': ["error", "always", {"null": "ignore"}],
       'generator-star-spacing': [2, {
         'before': true,

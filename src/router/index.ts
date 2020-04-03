@@ -6,7 +6,7 @@ Vue.use(Router)
 export const constantRoutes: RouteConfig[] = [
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'),
     meta: {
       title: '登陆页'
     }

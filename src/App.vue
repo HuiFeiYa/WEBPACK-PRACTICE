@@ -12,9 +12,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-.App {
-  color: skyblue;
-}
-</style>
