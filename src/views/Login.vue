@@ -11,6 +11,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Avatar from '../components/AvatarUpload/index.vue'
 // import { getArticles } from '../api/layout'
+// eslint-disable-next-line no-unused-vars
 import { RouteConfig } from 'vue-router'
 @Component({
   components: {

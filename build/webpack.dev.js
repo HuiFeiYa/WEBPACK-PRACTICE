@@ -8,25 +8,6 @@ module.exports = merge(webpackConfig, {
   devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
-      {
-        test: /\.(le|c)ss$/,
-        use: ['css-loader', {
-            loader: 'postcss-loader',
-            options: {
-                plugins: function () {
-                    return [
-                        require('autoprefixer')({
-                            "overrideBrowserslist": [
-                                ">0.25%",
-                                "not dead"
-                            ]
-                        })
-                    ]
-                }
-            }
-        }, 'less-loader'],
-        exclude: /node_modules/
-    },
     ]
   },
   devServer: {

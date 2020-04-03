@@ -4,7 +4,7 @@ const webpackConfig = require('./webpack.config')
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 // 拆分css 比如将内联的css拆分出来，这样改动 js后也不会导致 css 文件的缓存失败
 // 优化 css书写 优化了你的代码 margin: 10px 20px 10px 20px; =>margin:10px 20px;。
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const  {CleanWebpackPlugin}  = require('clean-webpack-plugin')
 const path = require('path')
@@ -13,38 +13,11 @@ module.exports = merge(webpackConfig, {
   devtool: '#source-map',
   module: {
     rules: [
-      {
-        test: /\.(le|c)ss$/,
-        use: [{
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-                hmr: false,
-                reloadAll:true
-            }
-        }, 'css-loader', {
-            loader: 'postcss-loader',
-            options: {
-                plugins: function () {
-                    return [
-                        require('autoprefixer')({
-                            "overrideBrowserslist": [
-                                ">0.25%",
-                                "not dead"
-                            ]
-                        })
-                    ]
-                }
-            }
-        }, 'less-loader'],
-        exclude: /node_modules/
-    },
+      
     ]
   },
   plugins: [
     new OptimizeCssPlugin(),
-    new MiniCssExtractPlugin({
-        filename: 'css/[name].css'
-    }),
     new BundleAnalyzerPlugin(),
     new webpack.DllReferencePlugin({
       manifest: require(path.resolve(__dirname, '../dist','dll','manifest.json'))

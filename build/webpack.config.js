@@ -5,7 +5,7 @@ const path = require('path')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const smp = new SpeedMeasurePlugin()
 const resolve = (dir) => path.resolve(__dirname, dir)
 //webpack.config.js
@@ -69,7 +69,39 @@ const webpackConfig = {
         {
             test: /\.vue$/,
             loader: 'vue-loader'
+        },
+        {
+            test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+            loader: 'file-loader'
+        },
+        {
+            test: /\.(le|c)ss$/,
+            use: [ 
+                {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        hmr: false,
+                        reloadAll:true
+                    }
+                },
+                'css-loader', {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: function () {
+                        return [
+                            require('autoprefixer')({
+                                "overrideBrowserslist": [
+                                    ">0.25%",
+                                    "not dead"
+                                ]
+                            })
+                        ]
+                    }
+                }
+            }, 'less-loader'],
+            include:[resolve('../src'),resolve('../node_modules/element-ui')]
         }
+    
       ]
   },
   plugins: [
@@ -83,6 +115,9 @@ const afterConfig = smp.wrap(webpackConfig)
 afterConfig.plugins.unshift(//数组 放着所有的webpack插件
     new HtmlWebpackPlugin({
         template: './public/index.html'
+    }),
+    new MiniCssExtractPlugin({
+        filename: 'css/[name].css'
     })
 )
 module.exports = afterConfig

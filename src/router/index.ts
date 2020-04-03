@@ -6,11 +6,22 @@ Vue.use(Router)
 export const constantRoutes: RouteConfig[] = [
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+    meta: {
+      title: '登陆页'
+    }
   },
   {
     path: '/',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+  },
+  {
+    path: '/permission',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+    meta: {
+      title: '权限管理',
+      roles: ['admin', 'editor']
+    }
   }
 ]
 
