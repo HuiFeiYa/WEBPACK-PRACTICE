@@ -1,0 +1,30 @@
+// 其实它的原理也很简单，就是通过 @font-face 引入自定义字体(其实就是一个字体库)，它里面规定了&#xe604 这个对应的形状就长这企鹅样。
+@font-face {
+  font-family: 'iconfont';  /* project id 1212269 */
+  src: url('//at.alicdn.com/t/font_1212269_rxke3jpoo9r.eot');
+  src: url('//at.alicdn.com/t/font_1212269_rxke3jpoo9r.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1212269_rxke3jpoo9r.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1212269_rxke3jpoo9r.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1212269_rxke3jpoo9r.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1212269_rxke3jpoo9r.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.makeicon(@cls,@cn) {
+  .icon-@{cls}:before {
+    content: @cn;
+  }
+}
+
+/*
+ * 使用实例在 html 标签中直接插入 <i class="iconfont">&#xe6bd;</i>
+ * 或者使用 .makeicon 函数来通过伪类插入 content 对于的内容
+*/ 
+.makeicon(arrow, '\e6bd'); /*规则*/

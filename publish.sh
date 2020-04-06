@@ -1,0 +1,1 @@
+rsync -rtv  dist/*  root@118.31.127.58:/repo/t-v3

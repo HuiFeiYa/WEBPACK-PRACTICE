@@ -1,5 +1,9 @@
 <template>
   <div class="login-container">
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-tianwentaiSVG" />
+    </svg>
+
     <el-form
       ref="loginForm"
       :model="loginForm"
