@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <svg-icon icon-class="search3" />
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-20gl-podium" />
     </svg>
