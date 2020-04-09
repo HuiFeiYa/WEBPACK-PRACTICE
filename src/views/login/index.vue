@@ -27,6 +27,7 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
 import { isValidUsername } from '@/utils/validate'
+import { getArticles } from '@/api/layout'
 @Component({})
 export default class componentName extends Vue {
   private validateUsername = (rule: any, value: string, callback: Function) => {
@@ -50,6 +51,9 @@ export default class componentName extends Vue {
   private loginRules = {
     username: [{ validator: this.validateUsername, trigger: 'blur' }],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
+  }
+  created() {
+    fetch('/api/articles')
   }
 }
 </script>

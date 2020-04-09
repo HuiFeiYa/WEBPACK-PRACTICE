@@ -5,24 +5,24 @@ import Router, { RouteConfig } from 'vue-router'
 Vue.use(Router)
 export const constantRoutes: RouteConfig[] = [
   {
-    path: '/login',
+    path: '/',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'),
     meta: {
       title: '登陆页'
     }
-  },
-  {
-    path: '/',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
-  },
-  {
-    path: '/permission',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
-    meta: {
-      title: '权限管理',
-      roles: ['admin', 'editor']
-    }
   }
+  // {
+  //   path: '/',
+  //   component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+  // },
+  // {
+  //   path: '/permission',
+  //   component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+  //   meta: {
+  //     title: '权限管理',
+  //     roles: ['admin', 'editor']
+  //   }
+  // }
 ]
 
 const createRouter = () => new Router({
