@@ -1,9 +1,11 @@
 <template>
   <div class="login-container">
     <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-20gl-podium" />
+    </svg>
+    <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-tianwentaiSVG" />
     </svg>
-
     <el-form
       ref="loginForm"
       :model="loginForm"
@@ -46,14 +48,33 @@ export default class componentName extends Vue {
   }
   private loginForm = {
     username: 'admin',
-    password: '111111'
+    password: '11111'
   }
   private loginRules = {
     username: [{ validator: this.validateUsername, trigger: 'blur' }],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
   created() {
-    fetch('/api/articles')
+  }
+  getLocation() {
+    if (window.navigator.geolocation) {
+      console.log('------')
+      navigator.geolocation.getCurrentPosition((position) => {
+        // console.log('a------')
+        const { latitude, longitude } = position.coords
+        const str = '纬度:' + latitude + '经度' + longitude
+        alert(str)
+      }, (err) => {
+        alert(err)
+        console.log('err', err)
+      }, {
+        enableHighAccuracy: false,
+        timeout: 15000,
+        maximumAge: 0
+      })
+    } else {
+      alert('Your browser does not natively support geolocation.');
+    }
   }
 }
 </script>
