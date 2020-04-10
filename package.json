@@ -58,6 +58,7 @@
     "@babel/runtime-corejs3": "^7.9.2",
     "axios": "^0.19.2",
     "element-ui": "^2.13.0",
+    "path-to-regexp": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "vue": "^2.6.11",

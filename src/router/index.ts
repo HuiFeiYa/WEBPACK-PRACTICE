@@ -1,7 +1,7 @@
 import Vue from 'vue'
 // eslint-disable-next-line no-unused-vars
 import Router, { RouteConfig } from 'vue-router'
-
+import Layout from '@/layout/index.vue'
 Vue.use(Router)
 export const constantRoutes: RouteConfig[] = [
   {
@@ -10,6 +10,42 @@ export const constantRoutes: RouteConfig[] = [
     meta: {
       title: '登陆页'
     }
+  },
+  {
+    path: '/chart',
+    component: Layout,
+    redirect: '/chart/index',
+    meta: {
+      title: '图表'
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "chart" */ '../views/chart/line-chart.vue'),
+        name: 'Chart',
+        meta: {
+          title: '线性图表'
+        }
+      }
+    ]
+  },
+  {
+    path: '/error',
+    component: Layout,
+    meta: {
+      title: '错误页面',
+      icon: 404
+    },
+    children: [
+      {
+        path: '404',
+        component: () => import(/* webpackChunkName: "chart" */ '../views/err-log/index.vue'),
+        name: '404',
+        meta: {
+          title: '404'
+        }
+      }
+    ]
   }
   // {
   //   path: '/',
