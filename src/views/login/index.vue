@@ -7,7 +7,7 @@
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-tianwentaiSVG" />
     </svg>
-    <el-form
+    <!-- <el-form
       ref="loginForm"
       :model="loginForm"
       :rules="loginRules"
@@ -22,7 +22,7 @@
           type="text"
           tabindex="1"
           autocomplete="on" />
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
   </div>
 </template>

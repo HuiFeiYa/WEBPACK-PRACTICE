@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="components-container">
     这里是 line-chart
     <button @click="$router.push('/error/404')">跳转404</button>
   </div>

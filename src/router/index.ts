@@ -6,10 +6,17 @@ Vue.use(Router)
 export const constantRoutes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'),
-    meta: {
-      title: '登陆页'
-    }
+    component: Layout,
+    redirect: '/chart/index',
+    children: [
+      {
+        path: '',
+        component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'),
+        meta: {
+          title: '登陆页'
+        }
+      }
+    ]
   },
   {
     path: '/chart',
@@ -21,6 +28,14 @@ export const constantRoutes: RouteConfig[] = [
     children: [
       {
         path: 'index',
+        component: () => import(/* webpackChunkName: "chart" */ '../views/chart/line-chart.vue'),
+        name: 'Chart',
+        meta: {
+          title: '线性图表'
+        }
+      },
+      {
+        path: 'index1',
         component: () => import(/* webpackChunkName: "chart" */ '../views/chart/line-chart.vue'),
         name: 'Chart',
         meta: {

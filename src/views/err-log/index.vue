@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="components-container">
     404 页面
     <button @click="$router.go(-1)">返回</button>
   </div>
