@@ -1,7 +1,6 @@
 <template>
   <div class="components-container">
-    404 页面
-    <button @click="$router.go(-1)">返回</button>
+    <img src="@/assets/images/error/401.gif" alt="">
   </div>
 </template>
 <script lang='ts'>

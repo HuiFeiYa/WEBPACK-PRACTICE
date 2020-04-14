@@ -11,10 +11,12 @@
     </template>
     <el-submenu v-else popper-append-to-body :index="resolvePath(item.path)">
       <template slot="title">
+        <!-- 图标 -->
         <svg-icon v-if="item.meta && item.meta.title" :icon-class="item.meta.icon" />
         <span v-if="item.meta && item.meta.title" slot="title">{{ item.meta.title }}</span>
       </template>
       <template v-if="item.children">
+        <!-- 显示子项 -->
         <sidebar-item
           v-for="child in item.children"
           :key="child.path"

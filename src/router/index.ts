@@ -8,12 +8,17 @@ export const constantRoutes: RouteConfig[] = [
     path: '/',
     component: Layout,
     redirect: '/chart/index',
+    meta: {
+      title: '主页',
+      icon: 'home_bar'
+    },
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'),
+        component: () => import(/* webpackChunkName: "login" */ '../views/home/index.vue'),
         meta: {
-          title: '登陆页'
+          title: '主页',
+          icon: 'home_bar'
         }
       }
     ]
@@ -23,7 +28,8 @@ export const constantRoutes: RouteConfig[] = [
     component: Layout,
     redirect: '/chart/index',
     meta: {
-      title: '图表'
+      title: '图表',
+      icon: 'tubiao'
     },
     children: [
       {
@@ -36,10 +42,10 @@ export const constantRoutes: RouteConfig[] = [
       },
       {
         path: 'index1',
-        component: () => import(/* webpackChunkName: "chart" */ '../views/chart/line-chart.vue'),
+        component: () => import(/* webpackChunkName: "chart" */ '../views/chart/bar-chart.vue'),
         name: 'Chart',
         meta: {
-          title: '线性图表'
+          title: '饼状图表'
         }
       }
     ]
@@ -49,15 +55,41 @@ export const constantRoutes: RouteConfig[] = [
     component: Layout,
     meta: {
       title: '错误页面',
-      icon: 404
+      icon: 'error'
     },
     children: [
       {
         path: '404',
-        component: () => import(/* webpackChunkName: "chart" */ '../views/err-log/index.vue'),
+        component: () => import(/* webpackChunkName: "chart" */ '../views/err-log/404.vue'),
         name: '404',
         meta: {
           title: '404'
+        }
+      },
+      {
+        path: '401',
+        component: () => import(/* webpackChunkName: "chart" */ '../views/err-log/401.vue'),
+        name: '401',
+        meta: {
+          title: '401'
+        }
+      }
+    ]
+  },
+  {
+    path: '/test',
+    component: Layout,
+    meta: {
+      title: '测试'
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "test" */ '../views/test/index.vue'),
+        name: 'test',
+        meta: {
+          title: 'test',
+          icon: 'fengxianpianhaoceshi'
         }
       }
     ]

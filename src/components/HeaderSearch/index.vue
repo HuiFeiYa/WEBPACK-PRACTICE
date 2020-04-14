@@ -2,23 +2,24 @@
   <div id="header-search" :class="{'show': show}" class="header-search">
     <svg-icon icon-class="search3" name="search" @click.stop="click" />
     <el-select ref="headerSearchSelect" v-model="search" :remote-method="querySearch" filterable default-first-option remote placeholder="Search" class="header-search-select" @change="change">
-      <el-option v-for="item in options" :key="item.path" :value="item" :label="item.meta.title.join(' > ')" />
+      <el-option v-for="item in options" :key="item" :value="item" :label="item" />
     </el-select>
   </div>
 </template>
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
-import { RouteConfig } from 'vue-router'
 @Component({})
-export default class componentName extends Vue {
+export default class HeaderSearch extends Vue {
   private show = false
   private search = ''
-  private options: RouteConfig[] = []
+  private options = []
   private click() {
     this.show = !this.show
   }
   private querySearch() {}
-  private change() {}
+  private change(value:any) {
+    console.log('value', value)
+  }
 }
 </script>
 <style lang='less' scoped >

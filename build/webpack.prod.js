@@ -36,5 +36,5 @@ module.exports = merge(webpackConfig, {
   })
   ],
   // 每次构建都是基于上次构建的基础上进行的
-  recordsPath: path.join(__dirname, './dist/records.json')
+  recordsPath: path.join(__dirname, '../dist/records.json')
 })

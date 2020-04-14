@@ -1,12 +1,14 @@
 <template>
   <div class="login-container">
-    <svg-icon icon-class="search3" />
+    <!-- <svg-icon icon-class="search3" />
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-20gl-podium" />
     </svg>
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-tianwentaiSVG" />
-    </svg>
+    </svg> -->
+    <github-corner style="position: absolute; top: 0; border: 0; right: 0;" />
+    <img style="width:300px" src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" class="emptyGif">
     <!-- <el-form
       ref="loginForm"
       :model="loginForm"
@@ -30,8 +32,13 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
 import { isValidUsername } from '@/utils/validate'
+import GithubCorner from '@/components/GithubCorner/index.vue'
 import { getArticles } from '@/api/layout'
-@Component({})
+@Component({
+  components: {
+    GithubCorner
+  }
+})
 export default class componentName extends Vue {
   private validateUsername = (rule: any, value: string, callback: Function) => {
     if (!isValidUsername(value)) {
@@ -80,5 +87,9 @@ export default class componentName extends Vue {
 }
 </script>
 <style lang='less' scoped >
-
+.login-container{
+  background-color:#e3e3e3;
+  min-height: 100%;
+  position: relative;
+}
 </style>
