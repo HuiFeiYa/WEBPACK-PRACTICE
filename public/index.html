@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-</head>
-<script src="//at.alicdn.com/t/font_941548_mxn1iv1pofr.js"></script>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <script src="//at.alicdn.com/t/font_941548_mxn1iv1pofr.js"></script>
+  <body>
     <div id="app"></div>
-    <!-- 将dll文件夹的包手动引入，因为这些文件是不常改动的，无需每次打包，如果版本升级需要手动重写引入打包后的文件 -->
-    <script>
-        var script = document.createElement('script')
-        if(location.hostname === 'localhost' ){
-            script.src = '../dist/dll/vue.dll.f251fb.js'
-        }else {
-            script.src = 'dll/vue.dll.f251fb.js'
-        }
-        document.body.appendChild(script)
-    </script>
-</body>
+    <script src="<%= (process.env.NODE_ENV === 'development' ? '../dist/dll/' : 'dll/')+ htmlWebpackPlugin.options.vendorJsName %>"></script>
+  </body>
 </html>

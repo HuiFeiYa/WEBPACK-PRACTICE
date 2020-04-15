@@ -1,9 +1,10 @@
 const webpack = require('webpack')
 const path = require('path')
+const AssetsPlugin = require('assets-webpack-plugin')
 
 module.exports = {
   entry: {
-    vue: ['vue', 'vue-router']
+    vue: ['vue/dist/vue.esm.js', 'vue-router']
   },
   mode: 'production',
   output: {
@@ -16,6 +17,10 @@ module.exports = {
       //name和library一致
       name: '[name]_dll',
       path: path.resolve(__dirname, '../dist', 'dll', 'manifest.json')
+    }),
+    new AssetsPlugin({
+      filename: 'bundle-config.json',
+      path: './'
     })
   ]
 }

@@ -8,6 +8,8 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const smp = new SpeedMeasurePlugin()
 const resolve = dir => path.resolve(__dirname, dir)
+const bundleConfig = require('../bundle-config.json')
+
 //webpack.config.js
 const webpackConfig = {
   entry: {
@@ -112,7 +114,8 @@ const afterConfig = smp.wrap(webpackConfig)
 afterConfig.plugins.unshift(
   //数组 放着所有的webpack插件
   new HtmlWebpackPlugin({
-    template: './public/index.html'
+    template: './public/index.html',
+    vendorJsName: bundleConfig.vue.js
   }),
   new MiniCssExtractPlugin({
     filename: 'css/[name].css'
