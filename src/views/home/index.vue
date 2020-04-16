@@ -40,6 +40,7 @@ import { getArticles } from '@/api/layout'
   }
 })
 export default class componentName extends Vue {
+  private search = ''
   private validateUsername = (rule: any, value: string, callback: Function) => {
     if (!isValidUsername(value)) {
       callback(new Error('Please enter the correct user name'))
