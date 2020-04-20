@@ -9,23 +9,7 @@
     </svg> -->
     <github-corner style="position: absolute; top: 0; border: 0; right: 0;" />
     <img style="width:300px" src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" class="emptyGif">
-    <!-- <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      autocomplete="on"
-      label-position="left">
-      <el-form-item>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="on" />
-      </el-form-item> -->
-    </el-form>
+
   </div>
 </template>
 
@@ -33,7 +17,6 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { isValidUsername } from '@/utils/validate'
 import GithubCorner from '@/components/GithubCorner/index.vue'
-import { getArticles } from '@/api/layout'
 @Component({
   components: {
     GithubCorner

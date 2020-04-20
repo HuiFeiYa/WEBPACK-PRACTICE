@@ -1,5 +1,11 @@
-# Vue Test Utils
-## test-utils
+## 参考
+[](https://vuedose.tips/tips/improve-performance-on-large-lists-in-vue-js/)
+# 测试
+## 添加 Jest vscode 插件
+热更新检测 test,在 OUTPUT 中查看测试结果，不需要启动命令行
+## 测试的优势
+* 测试用例里非常清楚的阐释了开发者和使用者对于这端代码的期望和要求，也非常有利于代码的传承。
+## Vue Test Utils
 ### mount
 ```
 // Import the `mount()` method from the test utils
@@ -22,6 +28,40 @@ import { shallowMount } from '@vue/test-utils'
 const wrapper = shallowMount(Component)
 wrapper.vm // 挂载的 Vue 实例
 ```
+### trigger 
+在*该 wrapper dom 节点上触发一个事件*，如果我们想在这个 wrapper 上触发 change,blur 事件，那么首先这个 wrapper 必须是 input ,checkbox 这样本身拥有事件的dom否则无法触发。 
+### 如何触发 el-input 的change blur 等事件
+```
+    // 返回匹配选择器中第一个dom节点
+    // 首先找到 el-input 组件，然后在这个组件基础上找到它内部 input 元素，这个才是正则触发事件的对象
+    const innerInput =  wrapper.find('.el-input').find('input')
+    console.log('innerInput', innerInput.html())
+    innerInput.trigger('blur')
+    innerInput.trigger('change')
+    // 注意这里并不会触发 input 事件，查看 element-ui el-input 组件，发现对于 input 事件触发加了限制代码截取在下面
+    innerInput.trigger('input')
+    innerInput.trigger('focus')
+```
+
+```
+      // element-ui 对 input 事件触发做了限制，所以直接通过 .trigger('input') 是无法触发的，但是在原生的 input 事件由于没有做限制是可以触发的。
+      handleInput(event) {
+        // should not emit input during composition
+        // see: https://github.com/ElemeFE/element/issues/10516
+        if (this.isComposing) return;
+
+        // hack for https://github.com/ElemeFE/element/issues/8548
+        // should remove the following line when we don't support IE
+        if (event.target.value === this.nativeInputValue) return;
+
+        this.$emit('input', event.target.value);
+
+        // ensure native input value is controlled
+        // see: https://github.com/ElemeFE/element/issues/12850
+        this.$nextTick(this.setNativeInputValue);
+      },
+```
+
 ## api 使用
 ### toContain 
 `expect(wrapper.html()).toContain('<span class="count">0</span>')`
@@ -30,9 +70,52 @@ wrapper.vm // 挂载的 Vue 实例
 
 ### find
 const button = wrapper.find('button')
+
+返回匹配选择器的第一个 DOM 节点或 Vue 组件的 Wrapper。
+* 可以通过 css 选择器作为参数
+* 通过 ref 选择  wrapper.find({ ref: 'myButton' })
+
+### findAll
+返回一个 WrapperArray。 
+
+通过 at() 来选中列表中某个 wrapper ，可以通过 html() 来查看他们具体长啥样。
+```
+const list = wrapper.findAll('.el-input')
+console.log('list--------',list.at(0).html(),list.at(1).html())
+```
+
+### html
+返回 Wrapper DOM 节点的 html 字符串
 ### trigger
 button.trigger('click')
+### setMethods
+通过 test.fn 返回一个模拟的数据， .setMethods({increment:stub}) 会将组件中这个方法都替换为 mock 的函数。
+```
+  test('count 值',()=>{
+    const stub = jest.fn(function(){
+      console.log('this',this)
+    })
+    container.setMethods({
+      increment:stub
+    })
+    container.find('.el-button').trigger('click')
+    expect(stub).toBeCalled()
+  })
+```
+### 获取组件中的值
+```
+data() {
+  return {
+    form: {
+      userName: ''
+    } 
+  }
+} 
 
+// 在测试用例中获取 wrapper.vm.form.userName
+
+expect(wrapper.vm.form.userName).toBe('')
+```
 ## 常用技巧
 
 ### 从子组件触发事件
@@ -91,7 +174,21 @@ const sen = shallowMount(Child,{
   }
 })
 ```
+### beforeEach(fn[, timeout])
+> Runs a function *before each of the tests* in this file runs. If the function returns a promise or is a generator, Jest waits for that promise to resolve before running the test. 统一处理一些全局文件中的一些事，如: wrapper = shallow(Login)
 
+### Snapshot Testing
+确保当前页面ui和上一次完全一致，会在本地报错上一次ui的文件,每当你想要确保你的UI不会有意外的改变，快照测试是非常有用的工具。
+
+```
+// 第一次会在当前目录下生成 __snapshots__ 相应的shot片段
+// 第二次执行会在和本地文件对比，有修改就会报错
+describe('snapshots 对比',()=>{
+  test('对比前后快照',()=>{
+    expect(container.element).toMatchSnapshot()
+  })
+})
+```
 # jest
 ## Additional Configuration
 ### Generate a basic configuration file
@@ -166,7 +263,8 @@ describe('my beverage', () => {
   });
 });
 ```
-
+## expect 
+When you're writing tests, you often need to check that values meet certain conditions. expect gives you access to a number of "matchers"(判断工具) that let you validate different things. 例如：toBe is a matcher function
 ## asynchronous code
 
 ### callback
@@ -229,3 +327,11 @@ test('async', ()=>{
   return delay().then(callback)
 })
 ```
+
+## 使用
+> 前端的单元测试是不必一味追求测试覆盖率的。（当然你要想达到100%测试覆盖率也是没问题的，只不过如果要达到这样的效果你需要撰写非常多繁琐的测试用例，占用太多时间，得不偿失。）替代地，我们只需要回归测试的本源：给定输入，我只关心输出，不考虑内部如何实现。只要能覆盖到和用户相关的操作，能测试到页面的功能即可。
+
+书写单元测试前先梳理要测的哪些点
+* ui 方面，有哪些元素
+* 逻辑处理方面，操作后有哪些响应
+* 通过 vue-test-utils 来模拟用户操作，获取ui 然后通过 jest 提供的 expect 断言来对预期的结果进行判断。通过判断事件是否触发、元素是否存在、数据是否正确、方法是否被调用等等来对我们的组件进行比较全面的测试

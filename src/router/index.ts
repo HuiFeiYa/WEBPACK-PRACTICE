@@ -5,6 +5,13 @@ import Layout from '@/layout/index.vue'
 Vue.use(Router)
 export const constantRoutes: RouteConfig[] = [
   {
+    path: '/login',
+    component: () => import(/* webpackChunkName Login */ '@/views/Login.vue'),
+    meta: {
+      title: '登陆'
+    }
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/chart/index',

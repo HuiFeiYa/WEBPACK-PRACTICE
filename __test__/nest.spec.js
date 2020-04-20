@@ -2,7 +2,14 @@ import Vue from 'vue'
 import { shallowMount, mount } from '@vue/test-utils'
 import Parent from '@/views/test/nestC/index.vue'
 import Child from '@/views/test/nestC/childComponent.vue'
-
+beforeEach(()=>{
+  return new Promise(resolve=>{
+    setTimeout(() => {
+      console.log('beforeEach handle')
+      resolve()
+    }, 3000);
+  })
+})
 describe('ParentComponent', () => {
   test("displays 'Emitted!' when custom event is emitted", () => {
     const wrapper = shallowMount(Parent)

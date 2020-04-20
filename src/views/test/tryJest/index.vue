@@ -1,14 +1,13 @@
 <template>
   <div>
     <span class="count">{{ count }}</span>
-    <button @click="increment">Increment</button>
-    <button @click="increment">c</button>
+    <el-button @click="increment">cccc</el-button>
+    <el-button @click="increment"> c 1  </el-button>
+    <el-button @click="increment"> 1111 </el-button>
   </div>
 </template>
 
 <script>
-import a from '@/utils/a.js'
-import { isValidUsername } from '@/utils/validate'
 export default {
   data() {
     return {
