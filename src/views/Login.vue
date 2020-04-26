@@ -18,7 +18,7 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
 import Avatar from '../components/AvatarUpload/index.vue'
-// import { getArticles } from '../api/layout'
+import { login } from '../api/login'
 // eslint-disable-next-line no-unused-vars
 import { RouteConfig } from 'vue-router'
 @Component({
@@ -36,8 +36,13 @@ export default class Login extends Vue {
     component: () => import(/* webpackChunkName: "login" */'./Dynamical.vue')
   }]
   created() {
+    login({
+      userName: 'admin',
+      password: 123456
+    })
   }
   private login() {
+    console.log('login')
   }
   private onDynamicalClick() {
     this.$router.addRoutes(this.routes)

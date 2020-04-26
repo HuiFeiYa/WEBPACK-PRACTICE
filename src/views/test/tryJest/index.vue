@@ -1,9 +1,7 @@
 <template>
   <div>
     <span class="count">{{ count }}</span>
-    <el-button @click="increment">cccc</el-button>
-    <el-button @click="increment"> c 1  </el-button>
-    <el-button @click="increment"> 1111 </el-button>
+    <el-button @click="increment">aaa</el-button>
   </div>
 </template>
 
@@ -20,6 +18,7 @@ export default {
   },
   methods: {
     increment() {
+      console.log('increment')
       this.count++
     }
   }

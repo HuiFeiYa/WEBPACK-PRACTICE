@@ -12,6 +12,8 @@ beforeEach(()=>{
 describe('Element-ui 相关测试',()=>{
   test('到底有几个button', ()=>{
     const button = container.find('.el-button')
+    console.log('button', button.html())
+    button.trigger('click')
   })
 })
 

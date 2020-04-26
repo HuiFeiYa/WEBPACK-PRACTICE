@@ -3,8 +3,30 @@
 # 测试
 ## 添加 Jest vscode 插件
 热更新检测 test,在 OUTPUT 中查看测试结果，不需要启动命令行
-## 测试的优势
+## 测试的优势及使用场景
+*为什么写*
+1. 让我们对自己的代码有信心
+2. 为代码重构保驾护航
+3. 通过单元测试快速熟悉代码
+4. 人员会流动，应用会变大。人员一定会流动，需求一定会增加，再也没有任何人能够了解任何一个应用场景。因此，意图依赖人、依赖手工的方式来应对响应力的挑战首先是低效的，从时间维度上来讲也是不现实的。
+*优势*
 * 测试用例里非常清楚的阐释了开发者和使用者对于这端代码的期望和要求，也非常有利于代码的传承。
+*场景*
+1. 逻辑复杂的
+2. 容易出错的
+3. 不易理解的，即使是自己过段时间也会遗忘的，看不懂自己的代码，单元测试代码有助于理解代码的功能和需求
+4. 公共代码。比如自定义的所有http请求都会经过的拦截器；工具类等。
+5. 核心业务代码。一个产品里最核心最有业务价值的代码应该要有较高的单元测试覆盖率。
+
+*写测试的阶段*
+比较推荐单元测试与具体实现代码同步进行这个方案的。*测试先行*
+
+*没有单元测试的情况*
+* 任何代码都是在假定其他代码是正确无误的情况下编写的。
+* 修改一处代码时无法得知会对其他代码产生怎样的影响。
+* 任何一处改动都需要进行功能级别的整体调试。
+
+
 ## Vue Test Utils
 ### mount
 ```
@@ -102,6 +124,7 @@ button.trigger('click')
     expect(stub).toBeCalled()
   })
 ```
+当通过 wrapper.setMethods() 给组件设置模拟方法后，可以通过 wrapper.vm.search 来查看模拟当方法， mixins 中的方法和属性都会被合并到 wrapper 组件中
 ### 获取组件中的值
 ```
 data() {
@@ -146,11 +169,25 @@ jest 可以测试出是否传递必要 props
 
 
 ### 操作当前组件状态
+```
+// 初始化组件的状态 参数二是向组件传递的对象会合并到 Vue 实例上
+const wrapper = mount(Search,{
+  mixins:[page],
+  data(){
+    return {
+      beCalled:false
+    }
+  }
+})
+```
 
 ```
+// 组件wrapper
 wrapper.setData({ count: 10 })
-
+// 组件wrapper
 wrapper.setProps({ foo: 'bar' })
+// dom wrapper 
+wrapper.setValue({ foo: 'bar' })
 ```
 需要配合 Vue.nextTick 
 ```
@@ -166,6 +203,67 @@ Vue.nextTick().then(()=>{
   expect(sen.html()).toContain('ccc')
 })
 ```
+使用 async 
+```
+it('test', async ()=>{
+  wrapper.setData({
+    foo:1
+  })
+  await Vue.nextTick()
+  wrapper.vm.foo // 1
+})
+```
+### 检验函数是否被调用
+方式一
+```
+// 需要检验是否被调用的函数
+const fn = jest.fn()
+// 模拟的函数，会执行，但是不知道为什么不会判定为被调用，所以需要在函数内部调用一个函数，来判断内部函数是否调用
+const getData = jest.fn(()=>{
+  fn()
+})
+wrapper.setMethods({
+  getData
+})
+dom.trigger('click')
+expect(fn).toBeCalled()
+```
+方式二
+检验模拟函数是否被执行必须使用 jest.fn()
+```
+const button = wrapper.find('.el-button')
+// 必须使用 jest.fn()
+const search = jest.fn(()=>{})
+// wrapper 中的methods 会被合并
+wrapper.setMethods({
+  search
+})
+// 模拟触发组件 wrapper 的方法
+button.trigger('click')
+expect(search).toBeCalled()
+```
+
+失败情况  
+当触发 el-pagination 内部dom的事件时需要使用 Vue.nextTick 等事件处理完
+```
+ const dom = wrapper.find('.el-pagination').find('.el-pager').find('li')
+  it('pagination', async () => {
+    const getData = jest.fn(()=>{
+      console.log('getData')
+    })
+    
+    // 模拟组件中的方法
+    wrapper.setMethods({
+      handleCurrentChange:getData
+    })
+   
+    dom.trigger('click')
+    // 必须添加，否则会导致断言失败
+    await Vue.nextTick()
+    expect(getData).toBeCalled()
+  })
+```
+
 ### 设置当前组件的 props 
 ```
 const sen = shallowMount(Child,{
@@ -174,6 +272,7 @@ const sen = shallowMount(Child,{
   }
 })
 ```
+
 ### beforeEach(fn[, timeout])
 > Runs a function *before each of the tests* in this file runs. If the function returns a promise or is a generator, Jest waits for that promise to resolve before running the test. 统一处理一些全局文件中的一些事，如: wrapper = shallow(Login)
 
@@ -187,6 +286,31 @@ describe('snapshots 对比',()=>{
   test('对比前后快照',()=>{
     expect(container.element).toMatchSnapshot()
   })
+})
+```
+
+### 通过 async await 配合实现异步数据获取
+```
+test('async ...', async()=>{
+  await wrapper.vm.addTodos()
+  expect().toEqual()
+})
+```
+
+### 异步请求
+```
+// 需要提在外面
+jest.mock('axios')
+it('检验 Login 组件', async ()=>{
+  wrapper.setData({
+    userName:'admin',
+    password: 123456
+  })
+  axios.get.mockResolvedValue({
+    data:[{title:'alc'}]
+  })
+  const title = await getFirstAlbumTitle()
+  expect(title).toEqual('alc')
 })
 ```
 # jest
