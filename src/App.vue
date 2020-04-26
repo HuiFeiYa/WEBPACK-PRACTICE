@@ -9,6 +9,9 @@ export default {
   name: 'App',
   data() {
     return {}
+  },
+  created() {
+    console.log('1')
   }
 }
 </script>

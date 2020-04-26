@@ -1,12 +1,16 @@
 <template>
   <div>
     <span class="count">{{ count }}</span>
-    <el-button @click="increment">aaa</el-button>
+    <Button @click="increment">aaa</Button>
   </div>
 </template>
 
 <script>
+import { Button } from 'element-ui'
 export default {
+  components: {
+    Button
+  },
   data() {
     return {
       search: '',

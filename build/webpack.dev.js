@@ -9,6 +9,11 @@ module.exports = merge(webpackConfig, {
   module: {
     rules: []
   },
+  // 是否监听所有文件
+  watch:true,
+  watchOptions: {
+    ignored:['__test__']
+  },
   devServer: {
     before(app) {
       apiMocker(app, path.resolve('./mock/mocker.js'))
