@@ -18,37 +18,40 @@ describe('测试 page',()=>{
    const dom = wrapper.find('.el-pagination').find('.el-pager').find('li')
   it('pagination', async () => {
     const handleCurrentChange = jest.fn(()=>{
+      console.log('mock-change')
     })
     // 模拟组件中的方法
-    // wrapper.setMethods({
-    //   handleCurrentChange
-    // })
+    wrapper.setMethods({
+      handleCurrentChange
+    })
     dom.trigger('click')
     await Vue.nextTick()
-    // expect(handleCurrentChange).toBeCalled()
+    expect(handleCurrentChange).toBeCalled()
   })
 
   it('size-change',async()=>{
     // 找到下拉框，并且点击第二个选项，实现size-change的改变
     const dom = wrapper.find('.el-pagination').find('.el-select').findAll('.el-select-dropdown__item').at(1)
+    const fn = jest.fn(()=>{
+      console.log('mock-size-change')
+    })
+    wrapper.setMethods({
+      handleSizeChange:fn
+    })
     dom.trigger('click')
-    console.log('dom',dom.html())
     await Vue.nextTick()
-    // expect(handleSizeChange).toBeCalled()
+    expect(fn).toBeCalled()
   })
   it('搜索条件变更后搜索', async () => {
     const button = wrapper.find('.el-button')
 
-    const fn = jest.fn()
     const search = jest.fn(()=>{
-      fn()
+      console.log('mock-search')
     })
-    // wrapper.setMethods({
-    //     search
-    // })
-    // console.log('dom.element', button.element)
-    // button.element.value = 11111
+    wrapper.setMethods({
+        search
+    })
     button.trigger('click')
-    // expect(search).toBeCalled()
+    expect(search).toBeCalled()
   })
 })

@@ -13,18 +13,18 @@ export default {
   methods: {
     handleSizeChange(val) {
       console.log('size-change')
-      this.pageInfo.pageSize = val;
-      this.getData();
+      this.pageInfo.pageSize = val
+      this.getData()
     },
     handleCurrentChange(val) {
-      console.log('current-change',val)
-      this.pageInfo.currentPage = val;
-      this.getData();
+      console.log('current-change', val)
+      this.pageInfo.currentPage = val
+      this.getData()
     },
     search(value) {
       console.log('click button',value.target.value)
-      this.pageInfo.currentPage = 1;
-      this.getData();
+      this.pageInfo.currentPage = 1
+      this.getData()
     }
   }
-};
+}
