@@ -28,6 +28,8 @@
 
 
 ## Vue Test Utils
+### wrapper 
+
 ### mount
 ```
 // Import the `mount()` method from the test utils
@@ -88,6 +90,7 @@ wrapper.vm // 挂载的 Vue 实例
 ### toContain 
 `expect(wrapper.html()).toContain('<span class="count">0</span>')`
 ### contains
+用于判断dom是否存在
 `expect(wrapper.contains('button')).toBe(true)`
 
 ### find

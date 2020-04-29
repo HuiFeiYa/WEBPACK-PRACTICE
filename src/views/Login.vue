@@ -21,6 +21,7 @@ import Avatar from '../components/AvatarUpload/index.vue'
 import { login } from '../api/login'
 // eslint-disable-next-line no-unused-vars
 import { RouteConfig } from 'vue-router'
+
 @Component({
   components: {
     Avatar
@@ -35,14 +36,15 @@ export default class Login extends Vue {
     path: '/dynamical',
     component: () => import(/* webpackChunkName: "login" */'./Dynamical.vue')
   }]
-  created() {
+  mounted() {
+  }
+  private login() {
     login({
       userName: 'admin',
       password: 123456
+    }).then(data => {
+      console.log('data', data)
     })
-  }
-  private login() {
-    console.log('login')
   }
   private onDynamicalClick() {
     this.$router.addRoutes(this.routes)
