@@ -37,6 +37,7 @@ export default class Login extends Vue {
     component: () => import(/* webpackChunkName: "login" */'./Dynamical.vue')
   }]
   mounted() {
+    this.login()
   }
   private login() {
     login({
