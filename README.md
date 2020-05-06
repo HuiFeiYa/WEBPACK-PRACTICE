@@ -6,7 +6,7 @@
 ## 测试的优势及使用场景
 *为什么写*
 1. 让我们对自己的代码有信心
-2. 为代码重构保驾护航
+2. 为代码*重构*保驾护航
 3. 通过单元测试快速熟悉代码
 4. 人员会流动，应用会变大。人员一定会流动，需求一定会增加，再也没有任何人能够了解任何一个应用场景。因此，意图依赖人、依赖手工的方式来应对响应力的挑战首先是低效的，从时间维度上来讲也是不现实的。
 *优势*
@@ -29,7 +29,7 @@
 
 ## Vue Test Utils
 ### wrapper 
-
+vue-test-utils 提供了两种方式用于渲染，或者说 加载（mount） 一个组件 -- mount 和 shallowMount。一个组件无论使用这两种方法的哪个都会返回一个 wrapper，也就是一个*包含了 Vue 组件的对象*，辅以一些对测试有用的方法。
 ### mount
 ```
 // Import the `mount()` method from the test utils
@@ -45,7 +45,7 @@ const vm = wrapper.vm
 
 ```
 ### shallowMount
-shallowMount 方法只挂载一个组件而不渲染其子组件
+shallowMount 方法只挂载一个组件而不渲染其子组件,渲染子组件会拖慢测试进度,一般推荐使用 shallowMount ，除非要去获取子组件中的dom
 ```
 import { shallowMount } from '@vue/test-utils'
 
@@ -86,7 +86,12 @@ wrapper.vm // 挂载的 Vue 实例
       },
 ```
 
-## api 使用
+## jest api 使用
+### 断言 expect
+```
+  expect(wrapper.find("span").text()).toBe("Not Authorized")
+  expect(wrapper.find("button").text()).toBe("submit")
+```
 ### toContain 
 `expect(wrapper.html()).toContain('<span class="count">0</span>')`
 ### contains
@@ -99,6 +104,12 @@ const button = wrapper.find('button')
 返回匹配选择器的第一个 DOM 节点或 Vue 组件的 Wrapper。
 * 可以通过 css 选择器作为参数
 * 通过 ref 选择  wrapper.find({ ref: 'myButton' })
+```
+//html
+<input v-model="username" data-username>
+
+wrapper.find("[data-username]").setValue("alice") 
+```
 
 ### findAll
 返回一个 WrapperArray。 

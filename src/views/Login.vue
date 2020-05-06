@@ -3,7 +3,7 @@
     <div>这里是主页</div>
     <el-form ref="login" :model="form" label-width="80px">
       <el-form-item label="登陆名">
-        <el-input v-model="form.userName" class="user" @change="onNameChange" @blur="onBlur" @input="onInput" @focus="onFocus" />
+        <el-input v-model="form.userName" class="user" @blur="onBlur" @input="onInput" @focus="onFocus" />
       </el-form-item>
       <el-form-item label="密码">
         <el-input v-model="form.password" class="password" />
@@ -44,15 +44,12 @@ export default class Login extends Vue {
       userName: 'admin',
       password: 123456
     }).then(data => {
-      console.log('data', data)
+      this.form = data
     })
   }
   private onDynamicalClick() {
     this.$router.addRoutes(this.routes)
     console.log('动态添加 routes')
-  }
-  onNameChange() {
-    console.log('change')
   }
   onBlur() {
     console.log('blur')
