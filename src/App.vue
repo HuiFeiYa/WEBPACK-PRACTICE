@@ -1,5 +1,5 @@
 <template>
-  <div class="App">
+  <div class="App" ref="app">
     <router-view />
   </div>
 </template>
@@ -11,7 +11,19 @@ export default {
     return {}
   },
   created() {
-    console.log('1')
+    // console.log(c)
+    fetch('http://localhost:9000/react/font-error', {
+        method:'post',
+        body:JSON.stringify({name:'dd'}),
+        headers: {
+          "content-type":'application/json'
+        }
+      }).then(res=>res.json())
+  },
+  mounted() {
+    this.$refs.app.addEventListener('click',()=>{
+      console.log('111111', app)
+    })
   }
 }
 </script>

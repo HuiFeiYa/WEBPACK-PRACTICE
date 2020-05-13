@@ -10,6 +10,22 @@
     />
   </head>
   <script src="//at.alicdn.com/t/font_941548_mxn1iv1pofr.js"></script>
+  <script>
+    window.onerror = (msg,url,lineNo,columnNo,e)=>{
+      console.log('msg,url,lineNo,columnNo,e', msg,url,lineNo,columnNo,e)
+    }
+    window.addEventListener('unhandledrejection',event=>{
+      // 报错原因，当前路径，报错时间
+      console.log('unhandledrejection-------',event.reason,location.href,event)
+      fetch('http://localhost:9000/react/font-error',{
+        method:'post',
+        body:JSON.stringify({name:'dd'}),
+        headers: {
+          "content-type":'application/json'
+        }
+      }).then(res=>res.json())
+    })
+  </script>
   <body>
     <div id="app"></div>
     <script src="<%= (process.env.NODE_ENV === 'development' ? '../dist/dll/' : 'dll/')+ htmlWebpackPlugin.options.vendorJsName %>"></script>
