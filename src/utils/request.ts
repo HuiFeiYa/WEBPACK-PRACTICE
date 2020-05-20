@@ -22,12 +22,12 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
+    console.log('1111', error) // for debug
     return Promise.reject(error)
   }
 )
 
-// response interceptor
+// response interceptor1
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status

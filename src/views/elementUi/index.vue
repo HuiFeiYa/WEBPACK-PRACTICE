@@ -1,16 +1,17 @@
 <template>
-  <div class="components-container">
-    <!-- <img src="@/assets/images/error/401.gif" alt=""> -->
+  <div>
+    <el-date-picker
+      v-model="value1"
+      type="date"
+      placeholder="选择日期">
+    </el-date-picker>
   </div>
 </template>
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
-import { error } from '@/api/errlog'
 @Component({})
 export default class componentName extends Vue {
-  created() {
-    error()
-  }
+  private date = ''
 }
 </script>
 <style lang='less' scoped >

@@ -1,8 +1,7 @@
 import request from '@/utils/request'
 
-export const error = (params: any) =>
-  request({
-    url: '/react/font-error',
-    method: 'get',
+export const error = (params?:unknown) =>
+  // console.log('params', params)
+  request.post('/font-error', {
     params
   })

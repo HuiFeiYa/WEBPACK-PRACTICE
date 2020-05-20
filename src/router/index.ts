@@ -100,6 +100,23 @@ export const constantRoutes: RouteConfig[] = [
         }
       }
     ]
+  },
+  {
+    path: '/element',
+    component: Layout,
+    meta: {
+      title: 'Element-ui 测试'
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "element-ui" */'../views/elementUi/index.vue'),
+        name: 'ElementUi',
+        meta: {
+          title: 'Element'
+        }
+      }
+    ]
   }
   // {
   //   path: '/',

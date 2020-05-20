@@ -34,6 +34,10 @@ module.exports = {
         // html 闭合是否在同一行
         "multiline": "never"
       }],
+      // enforce the self-closing
+      "vue/html-self-closing":[
+        0
+      ],
       'block-spacing': [2, 'always'],
       'brace-style': [2, '1tbs', {
         'allowSingleLine': true

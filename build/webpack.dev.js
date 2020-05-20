@@ -38,7 +38,7 @@ module.exports = merge(webpackConfig, {
       // 值必须使用 JSON.stringify 否则引起一些奇怪的报错
       // https://webpack.docschina.org/plugins/define-plugin/
       'process.env.VUE_APP_BASE_API': JSON.stringify(
-        'https://localhost:8081/api'
+        'https://localhost:9000/react'
       )
     })
   ]

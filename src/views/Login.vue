@@ -40,12 +40,6 @@ export default class Login extends Vue {
     this.login()
   }
   private login() {
-    login({
-      userName: 'admin',
-      password: 123456
-    }).then(data => {
-      this.form = data
-    })
   }
   private onDynamicalClick() {
     this.$router.addRoutes(this.routes)
