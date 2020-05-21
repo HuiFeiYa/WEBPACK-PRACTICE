@@ -11,11 +11,6 @@ export default {
     return {}
   },
   created() {
-  },
-  mounted() {
-    this.$refs.app.addEventListener('click',()=>{
-      console.log('111111', app)
-    })
   }
 }
 </script>

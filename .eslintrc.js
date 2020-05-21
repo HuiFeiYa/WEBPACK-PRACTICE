@@ -46,10 +46,7 @@ module.exports = {
         'properties': 'always'
       }],
       'comma-dangle': [2, 'never'],
-      'comma-spacing': [2, {
-        'before': false,
-        'after': true
-      }],
+      'comma-spacing': [0],
       'comma-style': [2, 'last'],
       'constructor-super': 2,
       'curly': [2, 'multi-line'],
@@ -197,7 +194,7 @@ module.exports = {
       'wrap-iife': [2, 'any'],
       'yield-star-spacing': [2, 'both'],
       'yoda': [2, 'never'],
-      'prefer-const': 2,
+      'prefer-const': 0,
       'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
       'object-curly-spacing': [2, 'always', {
         objectsInObjects: false
