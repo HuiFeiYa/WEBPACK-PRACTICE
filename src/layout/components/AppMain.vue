@@ -19,7 +19,7 @@ export default class componentName extends Vue {
 <style lang='less' scoped >
 .app-main {
   width: 100%;
-  // overflow: hidden;
+  overflow-y: auto;
   position: absolute;
   top:50px;
   left:0;
