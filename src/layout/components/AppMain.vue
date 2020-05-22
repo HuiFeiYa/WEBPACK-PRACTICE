@@ -18,27 +18,13 @@ export default class componentName extends Vue {
 </script>
 <style lang='less' scoped >
 .app-main {
-  /* 50= navbar  50  */
-  min-height: calc(100vh - 50px);
   width: 100%;
-  position: relative;
-  overflow: hidden;
+  // overflow: hidden;
+  position: absolute;
+  top:50px;
+  left:0;
+  right: 0;
+  bottom:0;
 }
 
-.fixed-header+.app-main {
-  padding-top: 50px;
-  height: 100vh;
-  overflow: auto;
-}
-
-.hasTagsView {
-  .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - 84px);
-  }
-
-  .fixed-header+.app-main {
-    padding-top: 84px;
-  }
-}
 </style>

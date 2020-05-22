@@ -21,7 +21,7 @@ export default class componentName extends Vue {
 </script>
 <style lang='less'>
 .icon {
-  width: 1.2em; height: 1.2em;
+  width: 20px; height: 20px;
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;

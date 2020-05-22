@@ -20,6 +20,7 @@ module.exports = {
           "allowFirstLine": false
         }
       }],
+      "vue/attributes-order":[0],
       "vue/singleline-html-element-content-newline": "off",
       "vue/multiline-html-element-content-newline":"off",
       "vue/name-property-casing": ["error", "PascalCase"],
@@ -63,10 +64,7 @@ module.exports = {
         'SwitchCase': 1
       }],
       'jsx-quotes': [2, 'prefer-single'],
-      'key-spacing': [2, {
-        'beforeColon': false,
-        'afterColon': true
-      }],
+      'key-spacing': [0],
       'keyword-spacing': [2, {
         'before': true,
         'after': true

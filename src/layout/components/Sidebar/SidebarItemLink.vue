@@ -16,5 +16,4 @@ export default class SidebarItemLink extends Vue {
 }
 </script>
 <style lang='less' scoped >
-
 </style>

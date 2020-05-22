@@ -113,8 +113,35 @@ export const constantRoutes: RouteConfig[] = [
         component: () => import(/* webpackChunkName: "element-ui" */'../views/elementUi/index.vue'),
         name: 'ElementUi',
         meta: {
-          title: 'Element'
+          title: 'Element 测试'
         }
+      }
+    ]
+  },
+  {
+    path: '/playground',
+    component: Layout,
+    meta: {
+      title: 'js playground',
+      icon: 'chongwuxunlian'
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "element-ui" */'../views/playground/scroll.vue'),
+        name: 'playground',
+        meta: {
+          title: 'js 集合'
+        },
+        children: [
+          {
+            path: 'scroll',
+            name: 'Scroll',
+            meta: {
+              title: '滚动'
+            }
+          }
+        ]
       }
     ]
   }
