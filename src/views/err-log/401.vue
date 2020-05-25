@@ -6,10 +6,16 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
 import { error } from '@/api/errlog'
+interface ListItem{
+  name:string,
+  age:number
+}
 @Component({})
+
 export default class componentName extends Vue {
+  private list:ListItem[] =[]
   created() {
-    error()
+    this.list.push({ name:'111',age:1 })
   }
 }
 </script>

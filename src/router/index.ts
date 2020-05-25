@@ -127,21 +127,20 @@ export const constantRoutes: RouteConfig[] = [
     },
     children: [
       {
-        path: 'index',
+        path: 'scroll',
         component: () => import(/* webpackChunkName: "element-ui" */'../views/playground/scroll.vue'),
         name: 'playground',
         meta: {
-          title: 'js 集合'
-        },
-        children: [
-          {
-            path: 'scroll',
-            name: 'Scroll',
-            meta: {
-              title: '滚动'
-            }
-          }
-        ]
+          title: '滚动'
+        }
+      },
+      {
+        path:'ts',
+        name:'Ts',
+        component: () => import('../views/playground/tsp/index.vue'),
+        meta: {
+          title:'ts'
+        }
       }
     ]
   }

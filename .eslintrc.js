@@ -146,10 +146,7 @@ module.exports = {
       }],
       'no-unreachable': 2,
       'no-unsafe-finally': 2,
-      'no-unused-vars': [2, {
-        'vars': 'all',
-        'args': 'none'
-      }],
+      'no-unused-vars': [0],
       'no-useless-call': 2,
       'no-useless-computed-key': 2,
       'no-useless-constructor': 2,
@@ -194,9 +191,7 @@ module.exports = {
       'yoda': [2, 'never'],
       'prefer-const': 0,
       'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-      'object-curly-spacing': [2, 'always', {
-        objectsInObjects: false
-      }],
+      'object-curly-spacing': [0],
       'array-bracket-spacing': [2, 'never']
     }
   }
