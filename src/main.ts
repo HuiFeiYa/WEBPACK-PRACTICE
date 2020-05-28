@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index'
 import ElementUI from 'element-ui'
-import SvgIcon from '@/components/SvgIcon'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/style/index.less'
 Vue.component('svg-icon', SvgIcon)

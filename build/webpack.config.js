@@ -13,7 +13,7 @@ const bundleConfig = require('../bundle-config.json')
 //webpack.config.js
 const webpackConfig = {
   entry: {
-    main: resolve('../src/main.js')
+    main: resolve('../src/main.ts')
   },
   output: {
     path: resolve('../dist'),
