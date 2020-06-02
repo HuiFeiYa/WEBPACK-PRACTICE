@@ -15,12 +15,15 @@
     "types": [
       "node",
       "webpack-env",
-      "jest"
+      "jest",
+      // "node_modules/@types",
+      "service/@types"
     ],
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "*":["service/@types/*"]
     },
     "lib": [
       "esnext",
@@ -31,9 +34,17 @@
   },
   "include": [                                   // 需要编译的ts文件一个*表示文件匹配**表示忽略文件的深度问题
     "src/**/*.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "service/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "__test__",
+    "__mocks__",
+    "build",
+    "coverage",
+    "dist",
+    "mock",
+    "public"
   ]
 }

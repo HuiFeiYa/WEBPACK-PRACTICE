@@ -17,7 +17,7 @@
 </template>
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
-import Avatar from '../components/AvatarUpload/index.vue'
+import Avatar from '@/components/AvatarUpload/index.vue'
 import { login } from '../api/login'
 // eslint-disable-next-line no-unused-vars
 import { RouteConfig } from 'vue-router'
