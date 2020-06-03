@@ -11,20 +11,73 @@
   </head>
   <script src="//at.alicdn.com/t/font_941548_gjgt1oezbpe.js"></script>
   <script>
+    // window.onload = function() {
+    //   console.log('document.body',document.body)
+    //   document.body.addEventListener('click',()=>{
+    //     console.log(a)
+    //   })
+    // }
+    // 运行时的错误
     window.onerror = (msg,url,lineNo,columnNo,e)=>{
-      console.log('msg,url,lineNo,columnNo,e', msg,url,lineNo,columnNo,e)
+
+      fetch('http://localhost:9000/react/font-error',{
+            method:'post',
+            body:JSON.stringify({
+              errType:msg,
+              errInfo:e.message,
+              fullPath:url
+            }),
+            headers: {
+              "content-type":'application/json'
+            }
+          })
     }
+
+    // Promise 被 reject 并且没有得到处理的时候
     window.addEventListener('unhandledrejection',event=>{
       // 报错原因，当前路径，报错时间
       console.log('unhandledrejection-------',event.reason,location.href,event)
+      const { message,config:{method,url} } = event.reason
+      const error = {
+        errType:message,
+        fullPath:location.href,
+        requestUrl:url,
+        method
+      }
       fetch('http://localhost:9000/react/font-error',{
         method:'post',
-        body:JSON.stringify({name:'dd'}),
+        body:JSON.stringify(error),
         headers: {
           "content-type":'application/json'
         }
-      }).then(res=>res.json())
+      })
     })
+
+    // 保存原生的 addEventListener 事件
+    const originAddEventListener = EventTarget.prototype.addEventListener
+    // 重写原生的监听事件
+    EventTarget.prototype.addEventListener = (type,listener,options) =>{
+      const wrappedListenner = (...args) => {
+        try {
+          return listener.apply(this,args)
+        } catch (error) {
+          const { name,message } = error
+          fetch('http://localhost:9000/react/font-error',{
+            method:'post',
+            body:JSON.stringify({
+              errType:name,
+              errInfo:message
+            }),
+            headers: {
+              "content-type":'application/json'
+            }
+          })
+          throw error 
+        }
+      }
+      return originAddEventListener.call(this,type,wrappedListenner,options)
+    }
+
   </script>
   <body>
     <div id="app"></div>

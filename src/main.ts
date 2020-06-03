@@ -11,7 +11,21 @@ Vue.config.errorHandler = function(err, vm, info) {
   // handle error
   // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
   // 只在 2.2.0+ 可用
-  console.log('----', err.name, info)
+  const componentRouteInfo = vm.$route
+  // 组件路径，路由名称
+  const { fullPath,name } = componentRouteInfo
+
+  console.log('----', err, info)
+  fetch('http://localhost:9000/react/font-error',{
+    method:'post',
+    body:JSON.stringify({
+      fullPath,
+      routeName:name,
+      errType:err.name,
+      errInfo:info
+    })
+  })
+  throw new Error('这里报错来')
 }
 
 new Vue({
