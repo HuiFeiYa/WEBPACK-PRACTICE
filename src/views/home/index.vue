@@ -8,7 +8,7 @@
       <use xlink:href="#icon-tianwentaiSVG" />
     </svg> -->
     <github-corner style="position: absolute; top: 0; border: 0; right: 0;" />
-    <img style="width:300px" src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" class="emptyGif">
+    <!-- <img style="width:300px" src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" class="emptyGif"> -->
 
   </div>
 </template>

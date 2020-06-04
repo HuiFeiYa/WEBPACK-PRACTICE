@@ -6,7 +6,8 @@
 </template>
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
-import { error } from '@/api/errlog'
+// import { error } from '@/api/errlog'
+import { error } from '@/utils/error'
 import request from '@/utils/request'
 interface ListItem{
   name:string,
@@ -16,9 +17,10 @@ interface ListItem{
 
 export default class Page401 extends Vue {
   created() {
-    // console.log(c)
+    // console.log(error)
     // request('/aaa/b')
     // error()
+    // error({msg:'CUOWU '})
   }
   onButtonClick() {
   }

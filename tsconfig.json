@@ -12,6 +12,8 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    // 不校验 this 的类型
+    "noImplicitThis":false,
     "paths": {
       "@/*": [
         "src/*"
